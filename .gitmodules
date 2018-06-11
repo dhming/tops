@@ -1,0 +1,7 @@
+[submodule "public"]
+	path = public
+	url = git@gitee.com:toychain/toychain-ui.git
+	branch = master
+[submodule "test/toy-js"]
+	path = test/toy-js
+	url = git@gitee.com:toychain/toy-js.git

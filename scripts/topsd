@@ -1,0 +1,144 @@
+#!/bin/bash
+
+readonly PROG_DIR=$(pwd)
+readonly PID_FILE=$PROG_DIR/tops.pid
+readonly IP="http://172.106.88.37:8000"
+
+function read_port() {
+  echo `cat $PROG_DIR/config.json | grep '"port"' | head -n 1 | awk -F "[:,]" '{print$2}'|tr -d ' '`
+}
+
+function is_running() {
+  test -f $PID_FILE && ps -p $(cat $PID_FILE) > /dev/null
+}
+
+function status() {
+  if is_running; then
+    echo "Toychain server is running"
+  else
+    echo "Toychain server is not running"
+  fi
+}
+
+function start() {
+  echo "Toychain server is started"
+}
+
+function stop() {
+  local pid
+  if test -f $PID_FILE; then
+    pid=$(cat $PID_FILE)
+  fi
+  if [ -n "$pid" ] && ps -p "$pid" > /dev/null; then
+    kill $pid
+    sleep 1
+    i=1
+    while ps -p $pid > /dev/null; do
+      if [ $i == 5 ]; then
+        kill -9 $pid
+        echo "Asch server killed"
+      fi
+      echo "Still waiting for asch server to stop ..."
+      sleep 1
+      ((i++))
+    done
+    echo "Asch server stopped"
+  else
+    echo "Asch server is not running"
+  fi
+  rm -f $PID_FILE
+}
+
+function restart() {
+  stop
+  start
+}
+
+function ismainnet(){
+  net="mainnet"
+  echo "net is $net"
+}
+
+
+function rebuild() {
+  ismainnet
+  
+  Name="toychain-last.tar.gz"
+
+  echo "Downloading file $Name..."
+  /bin/rm $Name
+  wget "$IP/$Name"
+  newMd5=$(md5sum $Name | awk '{print $1}')
+  echo "md5: $newMd5"
+
+  ./toycd stop
+  tar zxf $Name
+  rm $Name
+  ./toycd start
+}
+
+function version() {
+  node $PROG_DIR/app.js --version
+}
+
+function check_os() {
+  os_num=`cat /etc/os-release | grep '\"Ubuntu\"'  | wc -l`
+  if [ $os_num -ne 1 ];then
+    echo "Linux is not Ubuntu, please configure manually!" && exit 1
+  fi
+}
+
+function configure() {
+  check_os
+}
+
+function upgrade() {
+  ismainnet
+  Name="toychain-last.tar.gz"
+
+  mkdir -p tmp
+  Name = "toychain.last.tar.gz"
+  wget "$IP/$Name" -O tmp/$Name
+  
+  newMd5=$(md5sum tmp/$Name | awk '{print $1}')
+  echo "md5: $newMd5"
+  
+  echo "Extracting new package ..."
+  tar zxf tmp/$Name -C tmp/
+  extractedDir=`find tmp -maxdepth 1 -type d | grep toychain | head -n 1`
+  currentVersion=`./toycd version`
+  chmod u+x $extractedDir/toycd
+  ./toycd stop
+  
+  echo "Copying new files ..."
+  for file in `ls $extractedDir`
+  do
+    if [ "$file" != "config.json" ]; then
+    echo "copy $extractedDir/$file ..."
+    cp -r $extractedDir/$file ./
+    fi
+  done
+  rm -rf $extractedDir tmp/$latestName
+  newVersion=`./toycd version`  
+  echo "Upgrade to $newVersion done."
+  ./toycd start
+}
+
+
+function enable() {
+  local secret="$@"
+  local port=`read_port`
+  curl -k -H "Content-Type: application/json" -X POST -d '{"secret":"'"$secret"'"}' localhost:$port/api/delegates/forging/enable
+}
+
+function main() {
+  export PATH=$PROG_DIR/bin:$PATH
+  local cmdType=`type -t $1`
+  if [ $cmdType == "function" ]; then
+    eval $@
+  else
+    echo "Command not supported"
+  fi
+}
+
+main $@

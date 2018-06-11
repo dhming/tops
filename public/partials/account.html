@@ -1,0 +1,120 @@
+<div class="top-margin"></div>
+<div class="row">
+  <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="panel widget widget-green">
+        <div class="mask">
+          <div class="panel-progress">
+            <div class="panel-progress-bar" style="width: 70%;">
+              <span class="trackerball"></span>
+            </div>
+          </div>
+        </div>
+      <i class="widget__icon widget__icon--big text-success fas fa-cubes"></i>
+      <div class="panel-body">
+        <div class="wg-label">
+          {{address || '&nbsp;'}}
+        </div>
+        <div class="wg-data">
+          <img src="/images/48.png" style="width: 26px;height: 26px;vertical-align: -5px;" />
+          <span class="strong">{{balanceToShow[0] || 0}}<span class="small">{{balanceToShow[1]}}</span></span>&nbsp;TOP
+        </div>
+      </div>
+      <i class="widget__icon text-success fas fa-cubes"></i>
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="panel  widget widget-red" ng-show="diffVersion!=-1">
+        <div class="mask">
+          <div class="panel-progress">
+            <div class="panel-progress-bar" style="width: 70%;">
+              <span class="trackerball"></span>
+            </div>
+          </div>
+        </div>
+        <i class="widget__icon widget__icon--big text-danger fas fa-users"></i>
+      <div class="panel-body">
+        <div class="wg-label">
+          {{'topchain Client'|translate}}
+        </div>
+        <div class="wg-data version">
+          <span class="strong">v{{version}}</span><span class="wg-legend"><translate>Latest version</translate></span>
+        </div>
+      </div>
+      <i class="widget__icon text-danger fas fa-users"></i>
+    </div>
+    <div class="panel widget" ng-show="diffVersion==-1">
+      <div class="panel-body">
+        <div class="wg-label">
+          <translate>topchain Client Outdated</translate>
+        </div>
+        <div class="wg-data version">
+          <span class="strong">v{{version}}</span> <a href="https://topchain.io/download" target="_blank" class="btn btn-white waves-effect pull-right"><translate>UPDATE</translate></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading" ng-class="{'cursor': transactions.length}" eat-click-if="!transactions.length" ui-sref="main.transactions">
+        <h2>
+          {{'Latest Transactions'|translate}}
+        </h2>
+        <div class="more" ng-show="transactions.length">
+          <i class="fas fa-chevron-right"></i>
+          <span class="sr-only"><translate>More</translate></span>
+        </div>
+      </div>
+      <table id="transactions" ng-if="transactions.length">
+        <thead>
+          <tr class="head">
+            <th class="hide-in-1400">
+              <translate>Transaction ID</translate>
+            </th>
+            <th class="padding-in-1400">
+              <translate>Sender</translate>
+            </th>
+            <th>
+              <translate>Recipient</translate>
+            </th>
+            <th>
+              <translate>Time</translate>
+            </th>
+            <th>
+              <translate>Amount (Fee)</translate>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="transaction in transactions">
+            <td class="hide-in-1400">
+              <a href="#" ng-click="transactionInfo(transaction)" class="word-break-xs">{{transaction.id}}</a>
+            </td>
+            <td class="padding-in-1400">
+              <a href="#" ng-click="userInfo(transaction.senderId)" class="word-break-xs">{{transaction.senderId}}</a>
+            </td>
+            <td ng-show="transaction.type &lt;= 1">
+              <a href="#" ng-click="userInfo(transaction.recipientId)" class="word-break-xs">{{transaction.recipientId}}</a>
+            </td>
+            <td ng-show="transaction.type &gt; 1"></td>
+            <td>
+              {{transaction.timestamp | timeAgoFilter: false}}
+            </td>
+            <td>
+              <i ng-if="transaction.recipientId==transaction.senderId" class="vertical-text mdi-image-brightness-1 cloud-font fas"></i>
+              <i ng-if="transaction.recipientId!=transaction.senderId" class="vertical-text fas" ng-class="{'fa-plus-circle dark-meent-font': transaction.recipientId==address, 'fa-minus-circle dark-red-font': transaction.senderId==address}"></i>
+              {{transaction.amount | liskFilter}} ({{transaction.fee | liskFilter}})
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="panel-body empty-body" ng-if="!transactions.length">
+        <div class="logo-grey"></div>
+        <p class="empty-state-text">
+          {{'You have not made any transactions yet.'|translate}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
