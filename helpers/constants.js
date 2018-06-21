@@ -81,15 +81,14 @@ module.exports = {
 	// WARNING: When changing rewards you also need to change getBlockRewards(int) SQL function!
 	rewards: {
 		milestones: [
-			5000000000, // Initial Reward
-			4000000000, // Milestone 1
-			3000000000, // Milestone 2
-			2000000000, // Milestone 3
-			1000000000  // Milestone 4
+			4000000000, // Initial Reward
+			2000000000, // Milestone 1
+			1000000000 // Milestone 2
 		],
 		//offset: 1451520,   // Start rewards at block (n)
-		offset: 10,
-		distance: 3000000, // Distance between each milestone
+		offset: 777600, // 3个月
+		//distance: 3000000, // Distance between each milestone
+		distance: 9331200 // 3年
 	},
 	signatureLength: 196,
 	// WARNING: When changing totalAmount you also need to change getBlockRewards(int) SQL function!
