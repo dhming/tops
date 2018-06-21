@@ -12,7 +12,7 @@
     "db": {
         "host": "localhost",
         "port": 5432,
-        "database": "toyc_main",
+        "database": "tops_main",
         "user": "postgres",
         "password": "postgres",
         "poolSize": 95,
