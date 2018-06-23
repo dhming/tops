@@ -834,8 +834,6 @@ Transactions.prototype.shared = {
 								return setImmediate(cb, e.toString());
 							}
 
-							console.log(transaction);
-
 							modules.transactions.receiveTransactions([transaction], true, cb);
 						});
 					}

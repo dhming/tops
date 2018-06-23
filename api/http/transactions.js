@@ -16,7 +16,9 @@ var httpApi = require('../../helpers/httpApi');
  *  - get	/multisignatures
  * 	- get	/unconfirmed/get
  * 	- get	/unconfirmed
+ *  - put	/addTransactions2
  * 	- put	/
+ *  
  * @memberof module:transactions
  * @requires helpers/Router
  * @requires helpers/httpApi
@@ -45,7 +47,7 @@ function TransactionsHttpApi (transactionsModule, app, logger, cache) {
 		'get /unconfirmed/get': 'getUnconfirmedTransaction',
 		'get /unconfirmed': 'getUnconfirmedTransactions',
 		'put /': 'addTransactions',
-		'put /addTransactions2': 'addTransactions2' 
+		'put /addTransactions2': 'addTransactions2'
 	});
 
 	httpApi.registerEndpoint('/api/transactions', app, router, transactionsModule.isLoaded);

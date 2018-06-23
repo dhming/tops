@@ -176,6 +176,7 @@ Round.prototype.restoreVotesSnapshot = function () {
 Round.prototype.applyRound = function () {
 	var roundChanges = new RoundChanges(this.scope);
 	var queries = [];
+	var taxmanPublicKey;
 
 	// Reverse delegates if going backwards
 	var delegates = (this.scope.backwards) ? this.scope.roundDelegates.reverse() : this.scope.roundDelegates;
@@ -188,6 +189,7 @@ Round.prototype.applyRound = function () {
 		
 		if (delegate === this.scope.roundTaxman) {
 			balance = Number(new bignum(balance).add(this.scope.roundTotalTax).toFixed());
+			taxmanPublicKey = delegate;
 			this.scope.library.logger.trace('Applying round tax: ' + this.scope.roundTaxman + ':' + this.scope.roundTotalTax);
 		}
 
@@ -226,10 +228,14 @@ Round.prototype.applyRound = function () {
 			fees: feesRemaining
 		}));
 	}
+	
 
 	this.scope.library.logger.trace('Applying round', queries);
 
 	if (queries.length > 0) {
+		if (taxmanPublicKey) {
+			queries.push(this.scope.modules.accounts.getUpdateTaxesByPublicKeySql(taxmanPublicKey, this.scope.roundTotalTax));
+		}
 		return this.t.none(queries.join(''));
 	} else {
 		return this.t;

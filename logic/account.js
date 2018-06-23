@@ -353,6 +353,15 @@ function Account (db, schema, logger, cb) {
 			},
 			conv: Boolean,
 			immutable: true
+		},
+		{
+			name: 'taxes',
+			type: 'BigInt',
+			filter: {
+				type: 'integer'
+			},
+			conv: Number,
+			expression: '("taxes")::bigint'
 		}
 	];
 	
@@ -593,6 +602,10 @@ Account.prototype.getAll = function (filter, fields, cb) {
 		filter.address = {
 			$upper: ['address', filter.address]
 		};
+	}
+	
+	if (filter.taxes) {
+		filter.taxes = {$gt: 0};
 	}
 
 	var sql = jsonSql.build({

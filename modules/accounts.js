@@ -205,6 +205,25 @@ Accounts.prototype.mergeAccountAndGet = function (data, cb) {
 	return library.logic.account.merge(address, data, cb);
 };
 
+Accounts.prototype.getUpdateTaxesByPublicKeySql = function (publicKey, taxes, cb) {
+	var address = self.generateAddressByPublicKey(publicKey);
+	var err;
+	if (!address) {
+		err = 'Invalid public key';
+	}
+	
+	if (err) {
+		if (typeof cb === 'function') {
+			return setImmediate(cb, err);
+		} else {
+			throw err;
+		}
+	}
+	var sql = " UPDATE mem_accounts SET taxes=taxes + " + taxes + " WHERE address='" + address + "'; ";
+	console.log(sql);
+	return sql;
+}
+
 /**
  * Calls helpers.sandbox.callMethod().
  * @implements module:helpers#callMethod

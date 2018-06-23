@@ -389,7 +389,7 @@ Delegates.prototype.getDelegates = function (query, cb) {
 	modules.accounts.getAccounts({
 		isDelegate: 1,
 		sort: { 'vote': -1, 'publicKey': 1 }
-	}, ['username', 'address', 'publicKey', 'vote', 'missedblocks', 'producedblocks'], function (err, delegates) {
+	}, ['username', 'address', 'publicKey', 'vote', 'missedblocks', 'producedblocks', 'taxes'], function (err, delegates) {
 		if (err) {
 			return setImmediate(cb, err);
 		}
@@ -434,6 +434,46 @@ Delegates.prototype.getDelegates = function (query, cb) {
 			count: count,
 			offset: offset,
 			limit: realLimit
+		});
+	});
+};
+
+/**
+ * Gets Chairmans
+ */
+Delegates.prototype.getChairmans = function (query, cb) {
+	if (!query) {
+		throw 'Missing query argument';
+	}
+	modules.accounts.getAccounts({
+		isDelegate: 1,
+		taxes: 1,
+		sort: { 'vote': -1, 'publicKey': 1 }
+	}, ['username', 'address', 'publicKey', 'vote', 'missedblocks', 'producedblocks', 'taxes'], function (err, delegates) {
+		if (err) {
+			return setImmediate(cb, err);
+		}
+
+		var count = delegates.length;
+
+		var lastBlock   = modules.blocks.lastBlock.get(),
+		    totalSupply = __private.blockReward.calcSupply(lastBlock.height);
+
+		for (var i = 0; i < delegates.length; i++) {
+			delegates[i].rank = i + 1;
+			delegates[i].approval = (delegates[i].vote / totalSupply) * 100;
+			delegates[i].approval = Math.round(delegates[i].approval * 1e2) / 1e2 / 10;  // 初始发行量扩大了10倍，所以除以10
+
+			var percent = 100 - (delegates[i].missedblocks / ((delegates[i].producedblocks + delegates[i].missedblocks) / 100));
+			percent = Math.abs(percent) || 0;
+
+			var outsider = i + 1 > slots.delegates;
+			delegates[i].productivity = (!outsider) ? Math.round(percent * 1e2) / 1e2 / 10 : 0;
+		}
+
+		return setImmediate(cb, null, {
+			delegates: delegates,
+			count: count
 		});
 	});
 };
@@ -739,6 +779,15 @@ Delegates.prototype.shared = {
 					return setImmediate(cb, 'Delegate not found');
 				}
 			});
+		});
+	},
+
+	getChairmans: function(req, cb) {
+		modules.delegates.getChairmans(req.body, function(err, data) {
+			if (err) {
+				return setImmediate(cb, err);
+			}
+			return setImmediate(cb, null, {chairmans: data.delegates, count: data.count});
 		});
 	},
 

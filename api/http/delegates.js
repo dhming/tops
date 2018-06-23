@@ -44,6 +44,7 @@ function DelegatesHttpApi (delegatesModule, app, logger, cache) {
 		'get /voters': 'getVoters',
 		'get /get': 'getDelegate',
 		'get /': 'getDelegates',
+		'get /getChairmans': 'getChairmans',
 		'get /fee': 'getFee',
 		'get /forging/getForgedByAccount': 'getForgedByAccount',
 		'put /': 'addDelegate',
