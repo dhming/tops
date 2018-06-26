@@ -1,5 +1,5 @@
 {
-    "port": 6699,
+    "port": 5777,
     "address": "0.0.0.0",
     "version": "0.1.5",
     "minVersion": ">=0.1.5",
@@ -12,7 +12,7 @@
     "db": {
         "host": "localhost",
         "port": 5432,
-        "database": "tops_main",
+        "database": "tops_test",
         "user": "postgres",
         "password": "postgres",
         "poolSize": 95,
@@ -50,15 +50,15 @@
         "list": [
             {
                 "ip": "172.106.88.37",
-                "port": 6699
+                "port": 5777
             },
             {
                 "ip": "216.189.154.28",
-                "port": 6699
+                "port": 5777
             },
             {
                 "ip": "202.5.18.37",
-                "port": 6699
+                "port": 5777
             }
         ],
         "access": {
@@ -111,5 +111,5 @@
         "masterpassword": "LA8mwJQRqVn6",
         "autoexec": []
     },
-    "nethash": "e72b6b2ff9eb9e032f6e3e3a038d238f3bb8ae3e999c24117554cf9d9752f9bd"
+    "nethash": "88500c1f775f09ab87b09006783fe3fbc78e136ae122f3bae2a64fc373fa2823"
 }
