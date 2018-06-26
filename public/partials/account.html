@@ -16,7 +16,7 @@
         </div>
         <div class="wg-data">
           <img src="/images/48.png" style="width: 26px;height: 26px;vertical-align: -5px;" />
-          <span class="strong">{{balanceToShow[0] || 0}}<span class="small">{{balanceToShow[1]}}</span></span>&nbsp;TOP
+          <span class="strong">{{balanceToShow[0] || 0}}<span class="small">{{balanceToShow[1]}}</span></span>&nbsp;TOPS
         </div>
       </div>
       <i class="widget__icon text-success fas fa-cubes"></i>
@@ -104,7 +104,7 @@
             <td>
               <i ng-if="transaction.recipientId==transaction.senderId" class="vertical-text mdi-image-brightness-1 cloud-font fas"></i>
               <i ng-if="transaction.recipientId!=transaction.senderId" class="vertical-text fas" ng-class="{'fa-plus-circle dark-meent-font': transaction.recipientId==address, 'fa-minus-circle dark-red-font': transaction.senderId==address}"></i>
-              {{transaction.amount | liskFilter}} ({{transaction.fee | liskFilter}})
+              {{transaction.amount | topsFilter}} ({{transaction.fee | topsFilter}})
             </td>
           </tr>
         </tbody>

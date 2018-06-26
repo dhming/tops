@@ -14,32 +14,32 @@
     </div>
     <div class="col-md-6 col-xs-12 col-sm-12">
         <div class="info-panel info-panel-grey">
-            <span class="title">{{'TOP Earned'|translate}}</span>
-            <span class="plain-text text-right">{{totalForged  | liskFilter }} TOP</span>
+            <span class="title">{{'TOPS Earned'|translate}}</span>
+            <span class="plain-text text-right">{{totalForged  | topsFilter }} TOPS</span>
         </div>
     </div>
     <div class="col-md-3 col-xs-12 col-sm-12">
         <div class="info-panel info-panel-grey">
             <span class="title">{{'Today'|translate}}</span>
-            <span class="plain-text text-right">{{statistics.today  | liskFilter | number:2 }} TOP</span>
+            <span class="plain-text text-right">{{statistics.today  | topsFilter | number:2 }} TOPS</span>
         </div>
     </div>
     <div class="col-md-3 col-xs-12 col-sm-12">
         <div class="info-panel info-panel-grey">
             <span class="title">{{'Last 24 hours'|translate}}</span>
-            <span class="plain-text text-right">{{statistics.last24h  | liskFilter | number:2 }} TOP</span>
+            <span class="plain-text text-right">{{statistics.last24h  | topsFilter | number:2 }} TOPS</span>
         </div>
     </div>
     <div class="col-md-3 col-xs-12 col-sm-12">
         <div class="info-panel info-panel-grey">
             <span class="title">{{'Last 7 days'|translate}}</span>
-            <span class="plain-text text-right">{{statistics.last7d  | liskFilter | number:2 }} TOP</span>
+            <span class="plain-text text-right">{{statistics.last7d  | topsFilter | number:2 }} TOPS</span>
         </div>
     </div>
     <div class="col-md-3 col-xs-12 col-sm-12">
         <div class="info-panel info-panel-grey">
             <span class="title">{{'Last 30 days'|translate}}</span>
-            <span class="plain-text text-right">{{statistics.last30d  | liskFilter | number:2 }} TOP</span>
+            <span class="plain-text text-right">{{statistics.last30d  | topsFilter | number:2 }} TOPS</span>
         </div>
     </div>
 </div>
@@ -103,8 +103,8 @@
                         <span ng-show="block.timestamp > 0">{{block.timestamp | timeAgoFilter : showFullTime}}</span>
                         <span ng-show="block.timestamp == 0">-</span>
                     </td>
-                    <td data-title="tableBlocks.cols.totalFee" sortable="'totalFee'">{{block.totalFee | liskFilter}}</td>
-                    <td data-title="tableBlocks.cols.reward" sortable="'reward'">{{block.reward | liskFilter}}</td>
+                    <td data-title="tableBlocks.cols.totalFee" sortable="'totalFee'">{{block.totalFee | topsFilter}}</td>
+                    <td data-title="tableBlocks.cols.reward" sortable="'reward'">{{block.reward | topsFilter}}</td>
                     <td data-title="''" class="width-80"></td>
                 </tr>
             </table>

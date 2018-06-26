@@ -37,9 +37,9 @@
                     <td class="td-amount" data-title="tableTransactions.cols.amount" sortable="'amount'">
                         <i ng-if="transaction.recipientId==transaction.senderId" class="vertical-text mdi-image-brightness-1 cloud-font"></i>
                         <i ng-if="transaction.recipientId!=transaction.senderId" class="vertical-text" ng-class="{'fa-plus-circle dark-meent-font': transaction.recipientId==address, 'fa-minus-circle dark-red-font': transaction.senderId==address}"></i>
-                        {{transaction.amount | liskFilter}}
+                        {{transaction.amount | topsFilter}}
                     </td>
-                    <td data-title="tableTransactions.cols.fee">{{transaction.fee | liskFilter}}</td>
+                    <td data-title="tableTransactions.cols.fee">{{transaction.fee | topsFilter}}</td>
                     <td data-title="''"></td>
                 </tr>
                 <tr ng-repeat="transaction in $data">
@@ -58,9 +58,9 @@
                     <td class="td-amount" data-title="tableTransactions.cols.amount" sortable="'amount'">
                         <i ng-if="transaction.recipientId==transaction.senderId" class="vertical-text mdi-image-brightness-1 cloud-font"></i>
                         <i ng-if="transaction.recipientId!=transaction.senderId" class="vertical-text fas" ng-class="{'fa-plus-circle dark-meent-font': transaction.recipientId==address, 'fa-minus-circle dark-red-font': transaction.senderId==address}"></i>
-                        {{transaction.amount | liskFilter}}
+                        {{transaction.amount | topsFilter}}
                     </td>
-                    <td data-title="tableTransactions.cols.fee" sortable="'fee'">{{transaction.fee | liskFilter}}
+                    <td data-title="tableTransactions.cols.fee" sortable="'fee'">{{transaction.fee | topsFilter}}
                     </td>
                     <td data-title="''"></td>
                 </tr>

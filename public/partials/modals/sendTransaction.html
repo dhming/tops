@@ -10,9 +10,9 @@
                     </div>
                     <div class="modal-header clearfix" style="margin-top: 0">
                         <div>
-                            <h2>{{'Send TOP'|translate}}</h2>
+                            <h2>{{'Send TOPS'|translate}}</h2>
                         </div>
-                        <div><translate>Please enter the Recipient Address and TOP Amount that you would like send below.</translate></div>
+                        <div><translate>Please enter the Recipient Address and TOPS Amount that you would like send below.</translate></div>
                     </div>
                     <div class="modal-body">
                         <form ng-submit="passcheck()">
@@ -26,9 +26,9 @@
                             <div class="field-padding">
                                 <div class="input-field">
                                     <input id="amount" type="text" ng-model="amount" ng-focus="focus == 'amount'" ng-class="{'invalid': errorMessage.amount}">
-                                    <label for="amount"><translate>TOP Amount</translate></label>
+                                    <label for="amount"><translate>TOPS Amount</translate></label>
                                 </div>
-                                <span class="fee-text flat-text pull-right"><translate>Fee: {{fee | liskFilter}} TOP</span>
+                                <span class="fee-text flat-text pull-right"><translate>Fee: {{fee | topsFilter}} TOPS</span>
                                 <span class="pass-error" ng-show="errorMessage.amount">{{errorMessage.amount}}</span>
                             </div>
                             <p class="error-container" ng-show="errorMessage.fromServer">
@@ -40,7 +40,7 @@
                     <div class="modal-body bordered">
                         <span class="send-info-text flat-text">
                             <i class="fas fa-exclamation-circle"></i>
-                            <translate>Make sure you're sending TOP to the right address. This action can't be undone later.
+                            <translate>Make sure you're sending TOPS to the right address. This action can't be undone later.
                             </translate>
                         </span>
                     </div>

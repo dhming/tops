@@ -20,17 +20,17 @@
                                     <div class="transaction-path">
                                         <div class="transaction-part pull-left">
                                             <a href="#" class="blue-link" ng-click="userInfo(transaction.senderId)">{{transaction.senderId}}</a>
-                                            <span class="topchain">{{transaction.amount | liskFilter}} TOP</span>
+                                            <span class="topchain">{{transaction.amount | topsFilter}} TOPS</span>
                                         </div>
                                         <div class="transaction-direction"></div>
                                         <div class="transaction-part pull-right">
                                             <a href="#" class="blue-link" ng-click="userInfo(transaction.recipientId)">{{transaction.recipientId || "-"}}</a>
-                                            <span class="topchain">{{transaction.amount | liskFilter}} TOP</span>
+                                            <span class="topchain">{{transaction.amount | topsFilter}} TOPS</span>
                                         </div>
                                     </div>
                                     <div class="transaction-bottom">
-                                        <div class="fee"><translate>FEE</translate>: {{transaction.fee | liskFilter}} TOP</div>
-                                        <div class="topchain">{{transaction.amount | liskFilter}} TOP</div>
+                                        <div class="fee"><translate>FEE</translate>: {{transaction.fee | topsFilter}} TOPS</div>
+                                        <div class="topchain">{{transaction.amount | topsFilter}} TOPS</div>
                                         <div class="confirmations">{{transaction.confirmations || 0}} <translate>CONFIRMATIONS</translate></div>
                                     </div>
                                 </li>

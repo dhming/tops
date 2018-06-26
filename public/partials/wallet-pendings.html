@@ -18,9 +18,9 @@
                     <td class="td-amount" data-title="tableTransactions.cols.t_amount" sortable="'t_amount'">
                         <i ng-if="transaction.recipientId==transaction.senderId" class="vertical-text mdi-image-brightness-1 cloud-font"></i>
                         <i ng-if="transaction.recipientId!=transaction.senderId" class="vertical-text fas" ng-class="{'fa-plus-circle dark-meent-font': transaction.recipientId==address, 'fa-minus-circle dark-red-font': transaction.senderId==address}"></i>
-                        {{transaction.amount | liskFilter}}
+                        {{transaction.amount | topsFilter}}
                     </td>
-                    <td data-title="tableTransactions.cols.t_fee" sortable="'t_fee'">{{transaction.t_fee | liskFilter}}</td>
+                    <td data-title="tableTransactions.cols.t_fee" sortable="'t_fee'">{{transaction.t_fee | topsFilter}}</td>
                     <td data-title="tableTransactions.cols.confirmations">
                         {{transaction.multi.confirmations}}/{{transaction.multi.needed}}
                     </td>
