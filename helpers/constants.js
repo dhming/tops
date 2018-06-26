@@ -48,7 +48,7 @@ module.exports = {
 	blockHeaderLength: 248,
 	blockReceiptTimeOut: 20, // 2 blocks
 	confirmationLength: 77,
-	epochTime: new Date(Date.UTC(2018, 6, 18, 9, 0, 0, 0)),
+	epochTime: new Date(Date.UTC(2018, 5, 18, 9, 0, 0, 0)),
 	fees: {
 		send: 100000000,
 		vote: 1000000000,
