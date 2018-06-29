@@ -56,7 +56,7 @@
                     <td data-title="tableTransactions.cols.timestamp" sortable="'timestamp'">{{transaction.timestamp | timeAgoFilter : showFullTime}}
                     </td>
                     <td class="td-amount" data-title="tableTransactions.cols.amount" sortable="'amount'">
-                        <i ng-if="transaction.recipientId==transaction.senderId" class="vertical-text mdi-image-brightness-1 cloud-font"></i>
+                        <i ng-if="transaction.recipientId==transaction.senderId" class="vertical-text fas ng-scope fa-minus-circle dark-meent-font"></i>
                         <i ng-if="transaction.recipientId!=transaction.senderId" class="vertical-text fas" ng-class="{'fa-plus-circle dark-meent-font': transaction.recipientId==address, 'fa-minus-circle dark-red-font': transaction.senderId==address}"></i>
                         {{transaction.amount | topsFilter}}
                     </td>
